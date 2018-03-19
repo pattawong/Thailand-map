@@ -373,9 +373,9 @@ function updateGraph(){
           .attr('transform-origin', '50% 50%')
           .attr("d", path)
           .on("mouseover", function(d){
-               if(data_info[category][4]=="USD") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year]) + " " + data_info[category][4] + "<br>(" +data[d.properties.Adm1Name][year]*32 +" THB)"; }
-               else if(data_info[category][4]!=="") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year]) +" " + data_info[category][4] ; }
-               else { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year]); }
+               if(data_info[category][4]=="USD") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "<br>(" +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB)"; }
+               else if(data_info[category][4]!=="") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year].toFixed(2)) +" " + data_info[category][4] ; }
+               else { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year]).toFixed(2); }
                 
                tooltip_body;
                tooltip.transition()
