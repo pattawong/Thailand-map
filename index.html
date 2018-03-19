@@ -89,13 +89,13 @@
           
         <h3><b>Population </b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('density')"  >Population Density</button></h3>
          
-         <h3><b>Economy</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('household debt')" >Debt</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('gpp')" >GPP</button><button type="button" class=" btn-primary btn-lg" onclick="read_data('poverty')" >Poverty</button>
+         <h3><b>Economy</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('household debt')" >Debt</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('gpp')" >GPP</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('poverty')" >Poverty</button>
           </h3>
           
           <h3><b>Health</b><button type="button" class=" btn-primary btn-lg" onclick="read_data('life')" >Life Expectancy</button></h3>
           
      
-          <h3><b>Education</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('education')" >Education</button></h3>
+          <h3><b>Education</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('education')" >Years of Schooling</button></h3>
           
      
           <h3><b>Culture</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('monk')" >Monks</button></h3>
@@ -134,7 +134,8 @@ var data = {}
 //Max value
 var max_data = 40000; 
 //Category [Description,Scale,Color,filename,unit]
-var data_info = {"household debt":["Household Debt",[100, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000],d3.schemeOrRd[9],"household debt.csv","USD"],"household income":["Household Income per Month",[100, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000],d3.schemeGnBu[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0, 0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,0.5],d3.schemeReds[9],"inequality.csv",""],"gpp":["Gross Provincial Product at Current Market Price per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 650000, 800000, 1005000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of monk",[500, 1000, 2000, 3000, 5000, 7500, 10000, 12500,16000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 11],d3.schemePRGn[9],"education.csv","years"],"poverty":["Poverty Line",[10, 30, 40, 50, 70, 80, 100, 150,200],d3.schemePRGn[9],"poverty.csv","USD"],"life":["Life Expectancy",[0, 59, 62, 65, 68, 71, 74, 77,  80],d3.schemePRGn[9],"life_expect_m.csv","Years"],"density":["Population Density",[35, 100, 300, 700, 1000, 2000, 3000, 4000, 5000],d3.schemePRGn[9],"population_density.csv","Persons/Square Km"]};
+var data_info = {"household debt":["Household Debt",[100, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000],d3.schemeOrRd[9],"household debt.csv","USD"],"household income":["Household Income per Month",[100, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000],d3.schemeGnBu[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0, 0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,0.5],d3.schemeReds[9],"inequality.csv",""],"gpp":["Gross Provincial Product at Current Market Price per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 650000, 800000, 1005000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of monk",[500, 1000, 2000, 3000, 5000, 7500, 10000, 12500,16000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 11],d3.schemePRGn[9],"education.csv","years"],"poverty":["Poverty Line",[10, 30, 40, 50, 70, 80, 100, 150,200],d3.schemePRGn[9],"poverty.csv","USD"],"life":["Life Expectancy",[70, 71, 72, 73, 74, 76, 78, 80,  82],d3.schemePRGn[9],"life_expect_m.csv","Years"],"density":["Population Density",[35, 100, 300, 700, 1000, 2000, 3000, 4000, 5000],d3.schemeReds[9],"population_density.csv","Persons/Square Km"]};
+    
 //Define tooltip
 var tooltip;
 var tooltip_body
@@ -142,6 +143,8 @@ var legend_text;
 //Global variable
 var category ;
 var year ="1998";
+var min_year = 1998;
+var max_year = 2018;
 
 var province_selector = ["",""];
 
@@ -177,13 +180,13 @@ var slider_x = d3.scaleLinear()
 
 //Slider move handler
 function slider_move(h) {
-  if(h<=1998)
+  if(h<=min_year)
       {
-          h=1998;
+          h=min_year;
       }
-  if(h>=2018)
+  if(h>=max_year)
       {
-          h=2018;
+          h=max_year;
       }
     handle.attr("cx", slider_x(Math.round(h)));
     year = "" + (Math.round(h));
@@ -205,6 +208,10 @@ function read_data(cat)
     var columns = d.columns.slice(1);
     //Update Slider position
     year = columns[0];
+        
+    min_year = parseInt(columns[0]);
+    max_year = parseInt(columns[columns.length-1]);
+        
     handle.attr("cx", slider_x(Math.round(year)));
     //Arrange csv data into data variable
     for ( var i=0; i<d.length; i++)
