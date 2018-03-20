@@ -217,11 +217,12 @@ function read_data(cat)
     var columns = d.columns.slice(1);
     //Update Slider position
     year = columns[0];
+    handle.attr("cx", slider_x(Math.round(columns[0])));
         
     min_year = parseInt(columns[0]);
     max_year = parseInt(columns[columns.length-1]);
         
-    handle.attr("cx", slider_x(Math.round(year)));
+    
     //Arrange csv data into data variable
     for ( var i=0; i<d.length; i++)
     {
@@ -246,8 +247,7 @@ function read_data(cat)
     color = d3.scaleThreshold()
     .domain(data_info[cat][1])
     .range(data_info[cat][2]);
-    console.log(max_data);
-        console.log(min_data);
+
     x = d3.scaleSqrt()
     .domain([min_data, max_data])
     .rangeRound([440, 950]);
@@ -367,7 +367,8 @@ function updateGraph(){
     .duration(750)
     //Set slider position
     handle.attr("cx", slider_x(Math.round(year)));
-
+    
+    console.log(data);
 
     d3.json("th.json", function(error, topology) {
       if (error) throw error;
@@ -384,8 +385,8 @@ function updateGraph(){
           .attr("id", function(d) { return d.properties.Adm1Name.split(' ').join('_');})
           .attr("stroke", "#000")
           .attr("stroke-opacity", 0.3)
-          .attr('transform', 'rotate(70)')
-          .attr('transform-origin', '50% 50%')
+          .attr('transform', 'rotate(70,500,500)')
+          //.attr('transform-origin', '500px 500px')
           .attr("d", path)
           .on("mouseover", function(d){
                if(data_info[category][4]=="USD") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "<br>(" +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB)"; }
