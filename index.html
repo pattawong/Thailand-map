@@ -9,7 +9,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.min.js">
         </script>
-           <h1 style="background-color:white;" align="center"> Overview of Thailand (Title still a work in progress)</h1>
+           <h1 style="background-color:white;" align="center">Basic Well-Being Index in Thailand</h1>
         <style>
         * {
             box-sizing: border-box;
@@ -77,8 +77,7 @@
     </head>
     <body>
  
-        <center><p><b>Objective:</b> (trying to still understand all of our data to come up with a story line) </p>
-            <p> just a filler photo until i get the geospatial map of thailand working</p></center>
+        <center><p>There are many indexes to consider well looking at the quality of life in Thailand. The provinces of the most debt are just outside of the capital of Thailand, this can be seen throughout 1998-2015. Throughout 2011 to 2018 the province with the most population is Bangkok which is quite understandable since it is the capital. Provinces with the most education are surrounded around the capital as well as Phuket which is a popular destination for tourists. Buddhism is very important to Thai culture and the number of monks that reside in each province in Thailand. With all of these indexes in mind, Thailand is still a very budding and developing country as education, Gross Provincial Product and life expectancy get higher.</p></center>
         
 <table>
   <tr>
@@ -89,7 +88,7 @@
           
         <h3><b>Population </b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('density')"  >Population Density</button></h3>
          
-         <h3><b>Economy</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('household debt')" >Debt</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('gpp')" >GPP</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('poverty')" >Poverty</button>
+         <h3><b>Economy</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('gpp')" >GPP</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('poverty')" >Poverty</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('household debt')" >Debt</button>
           </h3>
           
           <h3><b>Health</b><button type="button" class=" btn-primary btn-lg" onclick="read_data('life')" >Life Expectancy</button></h3>
@@ -102,6 +101,9 @@
           
      
           <h3><b>Inequality</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('inequality')" >Inequality</button>
+          </h3>
+          <br>
+          <h3><b>Compare between two provinces</b><br><br><center> <button type="button" class=" btn-primary btn-lg" onclick="compare()" >Compare</button></center>
           </h3>
           
 
@@ -116,6 +118,11 @@
 <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
 <script>
 
+function compare()
+    {
+        window.location = "comparison.html?p1=" + province_selector[0] + "&p2=" + province_selector[1] + "&cat=" + category;
+    }
+    
 //return color according to scale and grey if data is missing
 function get_color(value)
     {
@@ -133,8 +140,9 @@ function get_color(value)
 var data = {}
 //Max value
 var max_data = 40000; 
+var min_data = 185;
 //Category [Description,Scale,Color,filename,unit]
-var data_info = {"household debt":["Household Debt",[100, 500, 1000, 2000, 3000, 4000, 6000, 8000, 10000],d3.schemeOrRd[9],"household debt.csv","USD"],"household income":["Household Income per Month",[100, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000],d3.schemeGnBu[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0, 0.1, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,0.5],d3.schemeReds[9],"inequality.csv",""],"gpp":["Gross Provincial Product at Current Market Price per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 650000, 800000, 1005000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of monk",[500, 1000, 2000, 3000, 5000, 7500, 10000, 12500,16000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 11],d3.schemePRGn[9],"education.csv","years"],"poverty":["Poverty Line",[10, 30, 40, 50, 70, 80, 100, 150,200],d3.schemePRGn[9],"poverty.csv","USD"],"life":["Life Expectancy",[70, 71, 72, 73, 74, 76, 78, 80,  82],d3.schemePRGn[9],"life_expect_m.csv","Years"],"density":["Population Density",[35, 100, 300, 700, 1000, 2000, 3000, 4000, 5000],d3.schemeReds[9],"population_density.csv","Persons/Square Km"]};
+var data_info = {"household debt":["Household Debt",[200, 1000, 3000, 4000, 5000, 6000, 7000, 8000, 10000],d3.schemeReds[9],"household debt.csv","USD"],"household income":["Household Income per Month",[100, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000],d3.schemeGnBu[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0.05,0.1, 0.15, 0.2, 0.25, 0.3, 0.35,0.4,0.45],d3.schemeOranges[9],"inequality.csv",""],"gpp":["Gross Provincial Product at Current Market Price per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 600000, 800000, 1000000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of Monks",[500, 1000, 2000, 3500, 5000, 7500, 10000, 12500,15000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[6, 6.5, 7, 7.5, 8, 9, 10, 11, 12],d3.schemePurples[9],"education.csv","years"],"poverty":["Poverty Line",[40, 50, 60, 70, 80, 90, 100, 150,200],d3.schemeYlGnBu[9],"poverty.csv","USD"],"life":["Life Expectancy",[ 74, 75,76, 77, 78, 79, 80, 81,82],d3.schemeBlues[9],"life_expect_m.csv","Years"],"density":["Population Density",[50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000],d3.schemePuRd[9],"population_density.csv","Persons/Square Km"]};
     
 //Define tooltip
 var tooltip;
@@ -201,6 +209,7 @@ function read_data(cat)
     //Rest data and max scale
     data = {};
     max_data = 0;
+    min_data = 999999999;
     
     //Read data from csv file
     d3.csv(filename, function(d) {
@@ -225,6 +234,11 @@ function read_data(cat)
          {
              max_data = data[province][c];
          }
+     if(data[province][c]<=min_data)
+         {
+             min_data = data[province][c];
+             //console.log(min_data,province,c);
+         }         
      });
     }
         
@@ -232,9 +246,10 @@ function read_data(cat)
     color = d3.scaleThreshold()
     .domain(data_info[cat][1])
     .range(data_info[cat][2]);
-    
+    console.log(max_data);
+        console.log(min_data);
     x = d3.scaleSqrt()
-    .domain([0, max_data*0.9])
+    .domain([min_data, max_data])
     .rangeRound([440, 950]);
     });
 
