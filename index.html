@@ -2,125 +2,74 @@
     <head>
        
         <meta charset="utf-8">
-        <title>Overview of Thailand </title> 
+        <title>Well-Being in Thailand</title> 
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">  
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.min.js">
         </script>
-           <h1 style="background-color:white;" align="center">Basic Well-Being Index in Thailand</h1>
-        <style>
-        * {
-            box-sizing: border-box;
-        }
+           <h1 style="background-color:white;" align="center">Well-Being in Thailand</h1>
 
-        /* Create three equal columns that floats next to each other */
-        .column {
-            float: left;
-            width: 25%;
-            padding: 10px;
-            height: 300px; /* Should be removed. Only for demonstration */
-        }
-
-        /* Clear floats after the columns */
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        .ticks {
-          font: 10px sans-serif;
-        }
-
-        .track,
-        .track-inset,
-        .track-overlay {
-          stroke-linecap: round;
-        }
-
-        .track {
-          stroke: #000;
-          stroke-opacity: 0.3;
-          stroke-width: 10px;
-        }
-
-        .track-inset {
-          stroke: #ddd;
-          stroke-width: 8px;
-        }
-
-        .track-overlay {
-          pointer-events: stroke;
-          stroke-width: 50px;
-          stroke: transparent;
-          cursor: crosshair;
-        }
-
-        .handle {
-          fill: #fff;
-          stroke: #000;
-          stroke-opacity: 0.5;
-          stroke-width: 1.25px;
-        }
-        .toolTip {
-          position: absolute;
-          display: none;
-          min-width: 80px;
-          height: auto;
-          background: none repeat scroll 0 0 #ffffff;
-          border: 1px solid #6F257F;
-          padding: 14px;
-          text-align: center;
-        }
-        </style>
     </head>
     <body>
  
-        <center><p>There are many indexes to consider well looking at the quality of life in Thailand. The provinces of the most debt are just outside of the capital of Thailand, this can be seen throughout 1998-2015. Throughout 2011 to 2018 the province with the most population is Bangkok which is quite understandable since it is the capital. Provinces with the most education are surrounded around the capital as well as Phuket which is a popular destination for tourists. Buddhism is very important to Thai culture and the number of monks that reside in each province in Thailand. With all of these indexes in mind, Thailand is still a very budding and developing country as education, Gross Provincial Product and life expectancy get higher.</p></center>
+        <div><p style="margin: 25px 100px 10px 100px;">The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. This data has a direct correlation with places with more years of education. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
         
-<table>
-  <tr>
-      <td>
-          <svg width="1000" height="1100"></svg>
-      </td>
-      <td>
-          
-        <h3><b>Population </b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('density')"  >Population Density</button></h3>
-         
-         <h3><b>Economy</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('gpp')" >GPP</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('poverty')" >Poverty</button> <button type="button" class=" btn-primary btn-lg" onclick="read_data('household debt')" >Debt</button>
-          </h3>
-          
-          <h3><b>Health</b><button type="button" class=" btn-primary btn-lg" onclick="read_data('life')" >Life Expectancy</button></h3>
-          
-     
-          <h3><b>Education</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('education')" >Years of Schooling</button></h3>
-          
-     
-          <h3><b>Culture</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('monk')" >Monks</button></h3>
-          
-     
-          <h3><b>Inequality</b> <button type="button" class=" btn-primary btn-lg" onclick="read_data('inequality')" >Inequality</button>
-          </h3>
-          <br>
-          <h3><b>Compare between two provinces</b><br><br><center> <button type="button" class=" btn-primary btn-lg" onclick="compare()" >Compare</button></center>
-          </h3>
-          
-
-      </td>
-  </tr>
-</table>
-
+        <center>
+        <svg width="1000" height="1100"></svg>
+        <br>
+          <button type="button" class="btn btn-danger" onclick="this.blur();read_data('inequality');" >Inequality</button>
+          <button type="button" class="btn btn-warning" onclick="this.blur();read_data('monk');" >Monks</button>
+          <button type="button" class="btn btn-success" onclick="this.blur();read_data('gpp');">GPP</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();read_data('household income');">Income</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();read_data('poverty');" >Poverty</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();read_data('household debt');" >Debt</button>
+          <button type="button" class="btn btn-info" onclick="this.blur();read_data('life');">Life Expectancy</button>
+          <button type="button" class="btn btn-purple" onclick="this.blur();read_data('education');" >Years of Schooling</button>
+          <button type="button" class="btn btn-pink" onclick="this.blur();read_data('density');">Population Density</button>
+          <br><br>
+          <h3>Click on provinces to compare</h3>
+          <button type="button" class="btn btn-teal btn-lg" onclick="this.blur(); compare();" >Compare</button>
+          <p id="compare" style="color:red"></p>
+          </center>
 </body>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v2.min.js"></script>
 <script src="https://d3js.org/colorbrewer.v1.min.js"></script>
 <script>
-
+    
+//Extract Url parameter
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' ')).split('_').join(' ');
+};
+//Comparisom button clickl
 function compare()
     {
-        window.location = "comparison.html?p1=" + province_selector[0] + "&p2=" + province_selector[1] + "&cat=" + category;
+        //Check if more than two provinces is clicked
+        if(province_selector.length>=2)
+            {
+            //Craft url
+            var url = "comparison.html?p=";
+            for(var i=0;i<province_selector.length;i++)
+                {
+                    url = url + province_selector[i];
+                    if(i<province_selector.length-1) { url = url + ",";}
+                }
+            url = url + "&cat=" + category; 
+            //Redirect to url
+            window.location = url;
+            }
+        else
+            {
+                //Show alert message
+                document.getElementById("compare").innerHTML = "Please select one or more provinces by click on the map";
+            }
     }
     
 //return color according to scale and grey if data is missing
@@ -136,30 +85,31 @@ function get_color(value)
         }
     }
         
-//Data collection
-var data = {}
-//Max value
-var max_data = 40000; 
-var min_data = 185;
 //Category [Description,Scale,Color,filename,unit]
-var data_info = {"household debt":["Household Debt",[200, 1000, 3000, 4000, 5000, 6000, 7000, 8000, 10000],d3.schemeReds[9],"household debt.csv","USD"],"household income":["Household Income per Month",[100, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000],d3.schemeGnBu[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0.05,0.1, 0.15, 0.2, 0.25, 0.3, 0.35,0.4,0.45],d3.schemeOranges[9],"inequality.csv",""],"gpp":["Gross Provincial Product at Current Market Price per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 600000, 800000, 1000000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of Monks",[500, 1000, 2000, 3500, 5000, 7500, 10000, 12500,15000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[6, 6.5, 7, 7.5, 8, 9, 10, 11, 12],d3.schemePurples[9],"education.csv","years"],"poverty":["Poverty Line",[40, 50, 60, 70, 80, 90, 100, 150,200],d3.schemeYlGnBu[9],"poverty.csv","USD"],"life":["Life Expectancy",[ 74, 75,76, 77, 78, 79, 80, 81,82],d3.schemeBlues[9],"life_expect_m.csv","Years"],"density":["Population Density",[50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000],d3.schemePuRd[9],"population_density.csv","Persons/Square Km"]};
+var data_info = {"household debt":["Household Debt",[200, 1000, 3000, 4000, 5000, 6000, 7000, 8000, 10000],d3.schemeGreens[9],"household debt.csv","USD"],"household income":["Household Income per Month",[200, 300, 400, 500, 600, 800, 1000, 1250, 1500],d3.schemeGreens[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0.1,0.125, 0.15, 0.2, 0.25, 0.3, 0.35,0.4,0.45],d3.schemeOranges[9],"inequality.csv",""],"gpp":["Gross Provincial Product per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 600000, 800000, 1000000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of Monks",[500, 1000, 2000, 3500, 5000, 7500, 10000, 12500,15000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[6, 6.5, 7, 7.5, 8, 9, 10, 11, 12],d3.schemePurples[9],"education.csv","years"],"poverty":["Poverty Line",[45, 50, 60, 70, 80, 90, 100, 150,200],d3.schemeGreens[9],"poverty.csv","USD"],"life":["Life Expectancy",[ 74, 75,76, 77, 78, 79, 80, 81,82],d3.schemeBlues[9],"life_expect_m.csv","Years"],"density":["Population Density",[50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000],d3.schemePuRd[9],"population_density.csv","Persons/Km^2"]};
     
 //Define tooltip
 var tooltip;
 var tooltip_body
 var legend_text;
+    
 //Global variable
+var data = {}
+//Max,min value
+var max_data = 40000; 
+var min_data = 185;
+
 var category ;
 var year ="1998";
 var min_year = 1998;
 var max_year = 2018;
 
-var province_selector = ["",""];
+var province_selector = [];
 
-    
 //Define Slider
 var slider;  
 var handle;
+    
 //Define SVG
 var svg = d3.select("svg"),
     margin = {right: 50, left: 50, top: 250, bottom:1050},
@@ -196,33 +146,36 @@ function slider_move(h) {
       {
           h=max_year;
       }
+    //Update cursor position
     handle.attr("cx", slider_x(Math.round(h)));
     year = "" + (Math.round(h));
+    //Update graph
     updateGraph();
 }
+    
 //Read csv file
 function read_data(cat)
-{
+{   
     //Get filename according to category
     var filename= data_info[cat][3];
     category = cat;
-    //Rest data and max scale
+    window.history.pushState("", "", '?cat='+category);
+    //Rest data, max/min scale
     data = {};
     max_data = 0;
     min_data = 999999999;
-    
+    province_selector = [];
     //Read data from csv file
     d3.csv(filename, function(d) {
     //Get columns(years)
     var columns = d.columns.slice(1);
-    //Update Slider position
+    //Update Slider position according to first year in dataset
     year = columns[0];
     handle.attr("cx", slider_x(Math.round(columns[0])));
         
     min_year = parseInt(columns[0]);
     max_year = parseInt(columns[columns.length-1]);
         
-    
     //Arrange csv data into data variable
     for ( var i=0; i<d.length; i++)
     {
@@ -230,7 +183,7 @@ function read_data(cat)
      data[province] = {};
      columns.forEach(function(c,j) { 
      data[province][c] = parseFloat(d[i][c]);
-     //Looking for max value
+     //Looking for max/min value
      if(data[province][c]>=max_data)
          {
              max_data = data[province][c];
@@ -238,7 +191,6 @@ function read_data(cat)
      if(data[province][c]<=min_data)
          {
              min_data = data[province][c];
-             //console.log(min_data,province,c);
          }         
      });
     }
@@ -259,21 +211,18 @@ function read_data(cat)
     
 }
 
-//Do some work!      
-read_data("household debt");        
-updateGraph();
 function draw_scale()
 {
 
     if(data_info[category][4]=="")
         {
-            legend_text =     data_info[category][0];
+            legend_text =  data_info[category][0];
         }
     else { legend_text = data_info[category][0] + " (" + data_info[category][4] +")";}
     //Add Scale/Legend
     var g = svg.append("g")
         .attr("class", "key")
-        .attr("transform", "translate(0,40)");
+        .attr("transform", "translate(0,1000)");
     
     g.selectAll("rect")
       .data(color.range().map(function(d) {
@@ -309,22 +258,25 @@ function click_province(province)
 {   
 
     var select_element = d3.selectAll("#"+province);
-    
+
     //Province already in list > will be remove
     if(province_selector.includes(province))
         {
-           province_selector[province_selector.indexOf(province)] = ""; 
+           province_selector.pop(province); 
            select_element.attr("fill",select_element.attr("original_fill"));
+           select_element.attr("stroke-opacity","0.3");
+           select_element.attr("stroke-width","1px");
         }
     else {
-        //Check empty slot
-        if(province_selector.includes(""))
-            {
-            //Put province in empty slot
-            province_selector[province_selector.indexOf("")] = province; 
-            select_element.attr("fill","red");
-            }
-    }
+
+        //Put province in empty slot
+        province_selector.push(province);
+        select_element.attr("fill","yellow");
+        select_element.attr("stroke-opacity","1");
+        select_element.attr("stroke-width","1.5px");
+        
+        }
+    
 }
 
 function updateGraph(){ 
@@ -391,10 +343,19 @@ function updateGraph(){
           //.attr('transform-origin', '500px 500px')
           .attr("d", path)
           .on("mouseover", function(d){
-               if(data_info[category][4]=="USD") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "<br>(" +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB)"; }
-               else if(data_info[category][4]!=="") { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year].toFixed(2)) +" " + data_info[category][4] ; }
-               else { tooltip_body = (d.properties.Adm1Name) + "<br>Year: " + (year)+ "<br>" + data_info[category][0] + ": " + (data[d.properties.Adm1Name][year]).toFixed(2); }
+               if(data_info[category][4]=="USD") { 
+                   tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr><tr><td></td><td style='text-align:right;'>" +   +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB</td></tr></table>"; }
+               else if(data_info[category][4]!=="") { 
+                   tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr></table>"; 
+                }
+               else {                  
+                    tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + "</td></tr></table>"; 
+                    }
                 
+               d3.select(this).attr("stroke-opacity", "1");
+               d3.select(this).attr("stroke-width", "2px");
+               //d3.select(this).attr("fill", "orange");
+            
                tooltip_body;
                tooltip.transition()
                .duration(200)
@@ -406,36 +367,78 @@ function updateGraph(){
                  .html(tooltip_body);
            })
             .on("mouseout", function(d){
+            d3.select(this).attr("stroke-opacity", "0.3");
+            d3.select(this).attr("stroke-width", "1px");
+            //d3.select(this).attr("fill", d3.select(this).attr("original_fill"));
             tooltip.style("display", "none").style("opacity", 0);})
             .on("click",function(d) { click_province(d.properties.Adm1Name.split(' ').join('_'));})
     });   
     
 };
-    </script>
 
+
+//Set category according to url
+category = getUrlParameter("cat");
+if(category!=="")
+{
+    read_data(category);        
+}
+else 
+{  //Default category
+    read_data("density");  
+}
+updateGraph();
+</script>
+    
+<br><br><br><br><br><br>
 
             <p> <b>Created by:</b> Pattawong Pansodtee and Victoria Ly in collaboration with Professor Lodha </p>
             <p> <b>Designed for:</b> CMPS 263 Data Visualization Winter 2018 </p>
 
     <center>      
-        <div class="row">
-              <div class="column" style=" ">
-                <h3>Files Submitted</h3>
-                <p>index.html</p>
-                <p>THA.json</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>Data Sources:</h3>
-                <p>National Statistics Office of Thailand</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>Vizualization Sources</h3>
-                <p>Some text..</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>References</h3>
-                <p>Some text..</p>
-              </div>
-            </div>
-    </center>
+       <div class="row">
+             <div class="column" style=" ">
+             <h3>Files Submitted</h3>
+               <p>index.html</p>
+               <p>th.json</p>
+               <p>stylesheet.css</p>
+               <p>comparison.html</p>  
+               <p>education.csv</p>
+               <p>gpp.csv</p>
+               <p>household debt.csv</p>
+               <p>household income.csv</p>
+               <p>indequality.csv</p>
+               <p>life_expect_m.csv</p>
+               <p>monk.csv</p>
+               <p>population_density.csv</p>
+               <p>population total.csv</p>
+               <p>poverty.csv</p>
+             </div>
+             <div class="column" style=" ">
+               <h3>Data Sources:</h3>
+               <p>National Statistics Office of Thailand</p>
+             </div>
+             <div class="column" style=" ">
+               <h3>Vizualization Sources</h3>
+                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
+               </p>  
+               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
+               </p>  
+                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
+               </p>
+       
+             </div>
+             <div class="column" style=" ">
+               <h3>References</h3>
+                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
+               </p>
+               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
+               </p>
+               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
+               </p>
+              <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
+               </p>
+             </div>
+           </div>
+   </center>
 </html>
