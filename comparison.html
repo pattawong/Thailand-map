@@ -44,8 +44,6 @@ var parseTime = d3.timeParse("%Y");
 //Data collection
 var data = {}
 
-
-
 //Define SVG
 var svg = d3.select("svg"),
     margin = {top: 20, right: 80, bottom: 30, left: 50},
@@ -184,6 +182,7 @@ function read_data(cat)
       .attr("stroke", function(d) { return z(d.id); })
       .attr("stroke-width", "2")
       .attr("fill", "none")
+      .attr("data-legend",function(d) { return d.id})
       .attr("id", function(d) { return d.id; })
      ;
     //Animate line
@@ -193,47 +192,88 @@ function read_data(cat)
       .transition()
         .duration(2000)
         .attr("stroke-dashoffset", 0);
-           
         
        province.append("text")
       .datum(function(d) { return {id: d.id, value: d.value[d.value.length - 1]}; })
-      .attr("transform", function(d) { return "translate(" + x(d.value.year) + "," + y(d.value.value) + ")"; })
+      //.attr("transform", function(d,i) { console.log(i); return "translate(" + x(d.value.year) + "," + y(d.value.value) + ")"; })
+      .attr("transform", function(d,i) { console.log(i); return "translate(80,"+(10+20*i)+")"; })
       .attr("x", 0)
       .attr("dy", "1em")
       .attr("id", function(d) { return d.id +"_label"; })
-      .style("font", "12px sans-serif")
+      .style("font", "16px sans-serif")
       .attr("fill", function(d) { return z(d.id); })
       .transition().duration(1000)
-      .delay( function(d,i) {return 2000;})
+      .delay( function(d,i) {return 100;})
       .text(function(d) { return d.id; });
+        
+    
+        
     });
     
 
 }
     </script>
-    <br><br><br>
+<br><br><br>
+<div style="margin: 25px 100px 10px 100px;>
             <p> <b>Created by:</b> Pattawong Pansodtee and Victoria Ly in collaboration with Professor Lodha </p>
             <p> <b>Designed for:</b> CMPS 263 Data Visualization Winter 2018 </p>
 
-    <center>      
-        <div class="row">
-              <div class="column" style=" ">
-                <h3>Files Submitted</h3>
-                <p>index.html</p>
-                <p>THA.json</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>Data Sources:</h3>
-                <p>National Statistics Office of Thailand</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>Vizualization Sources</h3>
-                <p>Some text..</p>
-              </div>
-              <div class="column" style=" ">
-                <h3>References</h3>
-                <p>Some text..</p>
-              </div>
-            </div>
-    </center>
+<center>      
+       <div class="row">
+             <div class="column" style="text-align:left ">
+               <h3>Files Submitted</h3>
+               <ul>
+                 <li>index.html</li>
+                 <li>th.json</li>
+                 <li>comparison.html</li>
+                 <li>index.html</li>
+                 <li>stylesheet.cs</li>
+                 <li>education.csv</li>
+                 <li>gpp.csv</li>
+                 <li>household debt.csv</li>
+                 <li>indequality.csv</li>
+                 <li>life_expect_m.csv</li>
+                 <li>monk.csv</li>
+                 <li>population_density.csv</li>
+                 <li>population total.csv</li>
+                 <li>poverty.csv</li>
+               </ul>
+ 
+             </div>
+             <div class="column" style="text-align:left ">
+               <h3>Data Sources:</h3>
+               <ul>
+                   <li><a href="http://web.nso.go.th/">National Statistics Office of Thailand</a></li>
+                   <li><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/th.html">CIA</a></li>
+                 </ul>
+
+             </div>
+             <div class="column" style=" text-align:left">
+               <h3>Vizualization Sources</h3>
+                 <ul>
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
+               </li>  
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
+               </li>  
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
+               </li>
+       </ul>
+             </div>
+             <div class="column" style=" text-align:left">
+               <h3>References</h3>
+                 <ul>
+                 
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
+               </li>
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
+               </li>
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
+               </li>
+              <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
+               </li>
+           </ul>
+             </div>
+           </div>
+   </center>
+</div>
 </html>

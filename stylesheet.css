@@ -55,7 +55,7 @@
 .btn-pink.active, 
 .open .dropdown-toggle.btn-pink { 
   color: #ffffff; 
-  background-color: #D696E0; 
+  background-color: #A82BA8; 
   border-color: #CC3DC2; 
 } 
  
@@ -101,7 +101,7 @@ fieldset[disabled] .btn-pink.active {
 .btn-teal.active, 
 .open .dropdown-toggle.btn-teal { 
   color: #ffffff; 
-  background-color: #16AD8F; 
+  background-color: #1D88A3; 
   border-color: #16AD8F; 
 } 
  

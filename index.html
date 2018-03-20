@@ -15,7 +15,7 @@
     </head>
     <body>
  
-        <div><p style="margin: 25px 100px 10px 100px;">The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. This data has a direct correlation with places with more years of education. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
+        <div style="margin: 25px 100px 10px 100px;"><p>The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. This data has a direct correlation with places with more years of education. The more populated a city is also corresponds to more years of schooling and longer life expectancy. Buddhism is the most common religion and monks are more commonly found in the northern half of the country where the population is more dense. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
         
         <center>
         <svg width="1000" height="1100"></svg>
@@ -30,7 +30,7 @@
           <button type="button" class="btn btn-purple" onclick="this.blur();read_data('education');" >Years of Schooling</button>
           <button type="button" class="btn btn-pink" onclick="this.blur();read_data('density');">Population Density</button>
           <br><br>
-          <h3>Click on provinces to compare</h3>
+          <h3>Click on the map to compare between provinces</h3>
           <button type="button" class="btn btn-teal btn-lg" onclick="this.blur(); compare();" >Compare</button>
           <p id="compare" style="color:red"></p>
           </center>
@@ -86,7 +86,7 @@ function get_color(value)
     }
         
 //Category [Description,Scale,Color,filename,unit]
-var data_info = {"household debt":["Household Debt",[200, 1000, 3000, 4000, 5000, 6000, 7000, 8000, 10000],d3.schemeGreens[9],"household debt.csv","USD"],"household income":["Household Income per Month",[200, 300, 400, 500, 600, 800, 1000, 1250, 1500],d3.schemeGreens[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0.1,0.125, 0.15, 0.2, 0.25, 0.3, 0.35,0.4,0.45],d3.schemeOranges[9],"inequality.csv",""],"gpp":["Gross Provincial Product per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 600000, 800000, 1000000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of Monks",[500, 1000, 2000, 3500, 5000, 7500, 10000, 12500,15000],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[6, 6.5, 7, 7.5, 8, 9, 10, 11, 12],d3.schemePurples[9],"education.csv","years"],"poverty":["Poverty Line",[45, 50, 60, 70, 80, 90, 100, 150,200],d3.schemeGreens[9],"poverty.csv","USD"],"life":["Life Expectancy",[ 74, 75,76, 77, 78, 79, 80, 81,82],d3.schemeBlues[9],"life_expect_m.csv","Years"],"density":["Population Density",[50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000],d3.schemePuRd[9],"population_density.csv","Persons/Km^2"]};
+var data_info = {"household debt":["Household Debt",[200, 1000, 3000, 4000, 5000, 6000, 7000, 8000, 10000],d3.schemeGreens[9],"household debt.csv","USD"],"household income":["Household Income per Month",[200, 300, 400, 500, 600, 800, 1000, 1250, 1500],d3.schemeGreens[9],"household income.csv","USD"],"inequality":["Inequality Gini coefficient",[0.1,0.125, 0.15, 0.2, 0.25, 0.3, 0.35,0.4,0.45],d3.schemeOranges[9],"inequality.csv",""],"gpp":["Gross Provincial Product per Capita",[50000, 100000, 200000, 300000, 400000, 500000, 600000, 800000, 1000000],d3.schemeGreens[9],"gpp.csv","USD"],"monk":["Number of Monks per ten thousand Capita",[10, 20, 30, 40, 50,60, 70, 80,100],d3.schemeYlOrBr[9],"monk.csv",""],"education":["Number of Years in Education",[6, 6.5, 7, 7.5, 8, 9, 10, 11, 12],d3.schemePurples[9],"education.csv","years"],"poverty":["Poverty Line",[45, 50, 60, 70, 80, 90, 100, 150,200],d3.schemeGreens[9],"poverty.csv","USD"],"life":["Life Expectancy",[ 74, 75,76, 77, 78, 79, 80, 81,82],d3.schemeBlues[9],"life_expect_m.csv","Years"],"density":["Population Density",[50, 100, 250, 500, 1000, 2000, 3000, 4000, 5000],d3.schemePuRd[9],"population_density.csv","Persons/Km^2"]};
     
 //Define tooltip
 var tooltip;
@@ -349,7 +349,7 @@ function updateGraph(){
                    tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr></table>"; 
                 }
                else {                  
-                    tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + "</td></tr></table>"; 
+                    tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year]) + "</td></tr></table>"; 
                     }
                 
                d3.select(this).attr("stroke-opacity", "1");
@@ -389,56 +389,68 @@ else
 }
 updateGraph();
 </script>
-    
-<br><br><br><br><br><br>
 
+<br><br><br>
+<div style="margin: 25px 100px 10px 100px;">
             <p> <b>Created by:</b> Pattawong Pansodtee and Victoria Ly in collaboration with Professor Lodha </p>
             <p> <b>Designed for:</b> CMPS 263 Data Visualization Winter 2018 </p>
 
-    <center>      
+<center>      
        <div class="row">
-             <div class="column" style=" ">
-             <h3>Files Submitted</h3>
-               <p>index.html</p>
-               <p>th.json</p>
-               <p>stylesheet.css</p>
-               <p>comparison.html</p>  
-               <p>education.csv</p>
-               <p>gpp.csv</p>
-               <p>household debt.csv</p>
-               <p>household income.csv</p>
-               <p>indequality.csv</p>
-               <p>life_expect_m.csv</p>
-               <p>monk.csv</p>
-               <p>population_density.csv</p>
-               <p>population total.csv</p>
-               <p>poverty.csv</p>
+             <div class="column" style="text-align:left ">
+               <h3>Files Submitted</h3>
+               <ul>
+                 <li>index.html</li>
+                 <li>th.json</li>
+                 <li>comparison.html</li>
+                 <li>index.html</li>
+                 <li>stylesheet.cs</li>
+                 <li>education.csv</li>
+                 <li>gpp.csv</li>
+                 <li>household debt.csv</li>
+                 <li>indequality.csv</li>
+                 <li>life_expect_m.csv</li>
+                 <li>monk.csv</li>
+                 <li>population_density.csv</li>
+                 <li>population total.csv</li>
+                 <li>poverty.csv</li>
+               </ul>
+ 
              </div>
-             <div class="column" style=" ">
+             <div class="column" style="text-align:left ">
                <h3>Data Sources:</h3>
-               <p>National Statistics Office of Thailand</p>
+               <ul>
+                   <li><a href="http://web.nso.go.th/">National Statistics Office of Thailand</a></li>
+                   <li><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/th.html">CIA</a></li>
+                 </ul>
+
              </div>
-             <div class="column" style=" ">
+             <div class="column" style=" text-align:left">
                <h3>Vizualization Sources</h3>
-                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
-               </p>  
-               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
-               </p>  
-                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
-               </p>
-       
+                 <ul>
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
+               </li>  
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
+               </li>  
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
+               </li>
+       </ul>
              </div>
-             <div class="column" style=" ">
+             <div class="column" style=" text-align:left">
                <h3>References</h3>
-                <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
-               </p>
-               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
-               </p>
-               <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
-               </p>
-              <p style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
-               </p>
+                 <ul>
+                 
+                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
+               </li>
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
+               </li>
+               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
+               </li>
+              <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
+               </li>
+           </ul>
              </div>
            </div>
    </center>
+</div>
 </html>
