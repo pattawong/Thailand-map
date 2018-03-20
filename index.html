@@ -251,15 +251,17 @@ function read_data(cat)
     x = d3.scaleSqrt()
     .domain([min_data, max_data])
     .rangeRound([440, 950]);
-    });
-
+    
     //Update graph
     updateGraph();
+    });
+
+    
 }
 
 //Do some work!      
 read_data("household debt");        
-
+updateGraph();
 function draw_scale()
 {
 
@@ -368,7 +370,7 @@ function updateGraph(){
     //Set slider position
     handle.attr("cx", slider_x(Math.round(year)));
     
-    console.log(data);
+    //console.log(data);
 
     d3.json("th.json", function(error, topology) {
       if (error) throw error;
