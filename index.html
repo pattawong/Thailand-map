@@ -1,6 +1,5 @@
 <html>
     <head>
-       
         <meta charset="utf-8">
         <title>Well-Being in Thailand</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">  
@@ -10,13 +9,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.min.js">
         </script>
-           <h1 style="background-color:white; margin: 25px 100px 10px 100px;" align="center">Well-Being in Thailand</h1>
-
+        <h1 style="background-color:white; margin: 25px 100px 10px 100px;" align="center">Well-Being in Thailand</h1>
     </head>
     <body>
- 
         <div style="margin: 25px 100px 10px 100px;"><p>The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth in provinces surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. There is a direct correlation with densely populated and wealthy provinces. These provinces tend to have more years of education and those who live there typically  have a longer life span. Buddhism is the most common religion and monks are more commonly found in the northern half of the country where the population is more dense. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
-        
         <center>
         <svg width="1000" height="1100"></svg>
         <br>
@@ -29,12 +25,12 @@
           <button type="button" class="btn btn-info" onclick="this.blur();read_data('life');">Life Expectancy</button>
           <button type="button" class="btn btn-purple" onclick="this.blur();read_data('education');" >Years of Schooling</button>
           <button type="button" class="btn btn-pink" onclick="this.blur();read_data('density');">Population Density</button>
-          <br><br>
-          <h3>Click on the map to compare between provinces</h3>
-          <button type="button" class="btn btn-teal btn-lg" onclick="this.blur(); compare();" >Compare</button>
-          <p id="compare" style="color:red"></p>
-          </center>
-
+      <br><br>
+      <h3>Click on the map to compare between provinces</h3>
+      <button type="button" class="btn btn-teal btn-lg" onclick="this.blur(); compare();" >Compare</button>
+      <p id="compare" style="color:red"></p>
+      </center>
+        
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v2.min.js"></script>
@@ -98,14 +94,14 @@ var data = {}
 //Max,min value
 var max_data = 40000; 
 var min_data = 185;
-
 var category ;
 var year ="1998";
 var min_year = 1998;
 var max_year = 2018;
 
 var province_selector = [];
-
+var province_path;
+    
 //Define Slider
 var slider;  
 var handle;
@@ -150,14 +146,18 @@ function slider_move(h) {
     handle.attr("cx", slider_x(Math.round(h)));
     year = "" + (Math.round(h));
     //Update graph
-    updateGraph();
+    province_path.transition()
+    .attr("fill", function(d) { return get_color(data[d.properties.Adm1Name][year]); })
+    .attr("original_fill", function(d) { return get_color(data[d.properties.Adm1Name][year]); })
+    //Reset province selector
+    province_selector = [];
 }
     
 //Read csv file
 function read_data(cat)
 {   
     //Get filename according to category
-    var filename= data_info[cat][3];
+    var filename= 'data/'+data_info[cat][3];
     category = cat;
     window.history.pushState("", "", '?cat='+category);
     //Rest data, max/min scale
@@ -172,7 +172,7 @@ function read_data(cat)
     //Update Slider position according to first year in dataset
     year = columns[0];
     handle.attr("cx", slider_x(Math.round(columns[0])));
-        
+    //Set new max/min
     min_year = parseInt(columns[0]);
     max_year = parseInt(columns[columns.length-1]);
         
@@ -183,7 +183,7 @@ function read_data(cat)
      data[province] = {};
      columns.forEach(function(c,j) { 
      data[province][c] = parseFloat(d[i][c]);
-     //Looking for max/min value
+     //Find max/min value
      if(data[province][c]>=max_data)
          {
              max_data = data[province][c];
@@ -196,6 +196,7 @@ function read_data(cat)
     }
         
     //Update Scale
+        console.log("2");
     color = d3.scaleThreshold()
     .domain(data_info[cat][1])
     .range(data_info[cat][2]);
@@ -205,10 +206,13 @@ function read_data(cat)
     .rangeRound([440, 950]);
     
     //Update graph
-    updateGraph();
+    province_path.transition()
+      .attr("fill", function(d) { return get_color(data[d.properties.Adm1Name][year]); })
+      .attr("original_fill", function(d) { return get_color(data[d.properties.Adm1Name][year]); })
+    //Update scale 
+    d3.selectAll(".key").remove();
+    draw_scale();
     });
-
-    
 }
 
 function draw_scale()
@@ -279,7 +283,7 @@ function click_province(province)
     
 }
 
-function updateGraph(){ 
+function drawGraph(){ 
     
     d3.selectAll("g > *").remove();
     d3.selectAll("text").remove();
@@ -329,7 +333,7 @@ function updateGraph(){
         //console.log("draw");
         draw_scale();
         
-        svg.append("g")
+         province_path = svg.append("g")
         .selectAll("path")
         .data(topojson.feature(topology, topology.objects.provinces).features)
         .enter().append("path")
@@ -387,70 +391,76 @@ else
 {  //Default category
     read_data("inequality");  
 }
-updateGraph();
+drawGraph();
 </script>
 
 <br><br><br>
-<div style="margin: 25px 100px 10px 100px;">
+<div style="margin: 25px 100px 10px 100px; background: #f9f9f9; font-size: 13px">
+    <div class="col-md-12">
+        <br>
             <p> <b>Created by:</b> Pattawong Pansodtee and Victoria Ly in collaboration with Professor Lodha </p>
             <p> <b>Designed for:</b> CMPS 263 Data Visualization Winter 2018 </p>
 
-<center>      
-       <div class="row">
-             <div class="column" style="text-align:left ">
-               <h3>Files Submitted</h3>
-               <ul>
-                 <li>index.html</li>
-                 <li>th.json</li>
-                 <li>comparison.html</li>
-                 <li>stylesheet.cs</li>
-                 <li>education.csv</li>
-                 <li>gpp.csv</li>
-                 <li>household debt.csv</li>
-                 <li>indequality.csv</li>
-                 <li>life_expect_m.csv</li>
-                 <li>monk.csv</li>
-                 <li>population_density.csv</li>
-                 <li>population total.csv</li>
-                 <li>poverty.csv</li>
-               </ul>
- 
-             </div>
-             <div class="column" style="text-align:left ">
-               <h3>Data Sources:</h3>
-               <ul>
-                   <li><a href="http://web.nso.go.th/">National Statistics Office of Thailand</a></li>
-                   <li><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/th.html">CIA</a></li>
-                 </ul>
+    <center>      
+           <div class="row">
+                 <div class="column" style="text-align:left ">
+                   <h5>Files Submitted</h5>
+                   <ul>
+                     <li>index.html</li>
+                     <li>th.json</li>
+                     <li>comparison.html</li>
+                     <li>stylesheet.cs</li>
+                     <li>education.csv</li>
+                     <li>gpp.csv</li>
+                     <li>household debt.csv</li>
+                     <li>indequality.csv</li>
+                     <li>life_expect_m.csv</li>
+                     <li>monk.csv</li>
+                     <li>population_density.csv</li>
+                     <li>population total.csv</li>
+                     <li>poverty.csv</li>
+                   </ul>
 
-             </div>
-             <div class="column" style=" text-align:left">
-               <h3>Vizualization Sources</h3>
-                 <ul>
-                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
-               </li>  
-               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
-               </li>  
-                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
-               </li>
-       </ul>
-             </div>
-             <div class="column" style=" text-align:left">
-               <h3>References</h3>
-                 <ul>
-                 
-                <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
-               </li>
-               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
-               </li>
-               <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
-               </li>
-              <li style = "background-color: transparent; color:black;font-size: 14px;"><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
-               </li>
+                 </div>
+                 <div class="column" style="text-align:left ">
+                   <h5>Data Sources:</h5>
+                   <ul>
+                       <li><a href="http://web.nso.go.th/">National Statistics Office of Thailand</a></li>
+                       <li><a href="https://data.go.th">Open Government - Thailand</a></li>
+                       <li><a href="https://www.cia.gov/library/publications/the-world-factbook/geos/th.html">CIA</a></li>
+                     </ul>
+
+                 </div>
+                 <div class="column" style=" text-align:left">
+                   <h5>Visualization Sources</h5>
+                     <ul>
+                    <li ><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ASEAN/">ASEAN: Human Development Index</a>
+                   </li>  
+                   <li ><a href="https://sureshlodha.github.io/CMPS165_Spring2016_FinalProjects/projects/NYvsChicago/index.html">New York City vs Chicago</a>
+                   </li>  
+                    <li ><a href="https://sureshlodha.github.io/CMPS165_Fall2016_FinalProjects/ChinaWealth/">China: Population and GDP 2014</a>
+                   </li>
            </ul>
-             </div>
-           </div>
-   </center>
+                 </div>
+                 <div class="column" style=" text-align:left">
+                   <h5>Code Sources</h5>
+                     <ul>
+
+                    <li ><a href="https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c">Command-Line Cartography, Part 1</a>
+                   </li>
+                   <li ><a href="https://medium.com/@mbostock/command-line-cartography-part-2-c3a82c5c0f3">Command-Line Cartography, Part 2</a>
+                   </li>
+                   <li ><a href="https://medium.com/@mbostock/command-line-cartography-part-3-1158e4c55a1e">Command-Line Cartography, Part 3</a>
+                   </li>
+                  <li ><a href="https://medium.com/@mbostock/command-line-cartography-part-4-82d0d26df0cf">Command-Line Cartography, Part 4</a>
+                   </li>
+                   <li ><a href="http://bl.ocks.org/mbostock/3884955">Multi-Series Line Chart</a></li>
+                   <li ><a href="http://duspviz.mit.edu/d3-workshop/transitions-animation/">Duspviz</a></li>
+               </ul>
+                 </div>
+               </div>
+       </center>
+    </div>
 </div>
 </body>
 </html>
