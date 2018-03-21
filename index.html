@@ -10,12 +10,12 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.min.js">
         </script>
-           <h1 style="background-color:white;" align="center">Well-Being in Thailand</h1>
+           <h1 style="background-color:white; margin: 25px 100px 10px 100px;" align="center">Well-Being in Thailand</h1>
 
     </head>
     <body>
  
-        <div style="margin: 25px 100px 10px 100px;"><p>The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. This data has a direct correlation with places with more years of education. The more populated a city is also corresponds to more years of schooling and longer life expectancy. Buddhism is the most common religion and monks are more commonly found in the northern half of the country where the population is more dense. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
+        <div style="margin: 25px 100px 10px 100px;"><p>The provinces surrounding Bangkok, the capital of Thailand, shows the highest population density. The most significant population clusters are located towards the north and northeast regions relative to Bangkok and in the extreme southern region of the country. The visualization represents the high concentration of wealth in provinces surrounding the capital as well as the areas of high tourist attraction including Phuket, which is located in the southern area of the country. There is a direct correlation with densely populated and wealthy provinces. These provinces tend to have more years of education and those who live there typically  have a longer life span. Buddhism is the most common religion and monks are more commonly found in the northern half of the country where the population is more dense. The Gross Provincial Product per Capita shows a trend of the Rayong Province producing more GPP per capita due to the industrialized sector.</p></div>
         
         <center>
         <svg width="1000" height="1100"></svg>
@@ -34,7 +34,7 @@
           <button type="button" class="btn btn-teal btn-lg" onclick="this.blur(); compare();" >Compare</button>
           <p id="compare" style="color:red"></p>
           </center>
-</body>
+
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script src="https://d3js.org/topojson.v2.min.js"></script>
@@ -344,12 +344,12 @@ function updateGraph(){
           .attr("d", path)
           .on("mouseover", function(d){
                if(data_info[category][4]=="USD") { 
-                   tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr><tr><td></td><td style='text-align:right;'>" +   +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB</td></tr></table>"; }
+                   tooltip_body = "<table><tr><td colspan='2' style='text-align:center;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr><tr><td></td><td style='text-align:right;'>" +   +(data[d.properties.Adm1Name][year]*32).toFixed(2) +" THB</td></tr></table>"; }
                else if(data_info[category][4]!=="") { 
-                   tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr></table>"; 
+                   tooltip_body = "<table><tr><td colspan='2' style='text-align:center;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year].toFixed(2)) + " " + data_info[category][4] + "</td></tr></table>"; 
                 }
                else {                  
-                    tooltip_body = "<table><tr><td style='text-align:left;'>Province</td><td style='text-align:right;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year]) + "</td></tr></table>"; 
+                    tooltip_body = "<table><tr><td colspan='2' style='text-align:center;'>"+(d.properties.Adm1Name) + "</td></tr><tr><td style='text-align:left;'>Year</td><td style='text-align:right;'>" + (year)+ "</td></tr><tr><td style='text-align:left;'>" + data_info[category][0] + "</td><td style='text-align:right;'>" + (data[d.properties.Adm1Name][year]) + "</td></tr></table>"; 
                     }
                 
                d3.select(this).attr("stroke-opacity", "1");
@@ -385,7 +385,7 @@ if(category!=="")
 }
 else 
 {  //Default category
-    read_data("density");  
+    read_data("inequality");  
 }
 updateGraph();
 </script>
@@ -403,7 +403,6 @@ updateGraph();
                  <li>index.html</li>
                  <li>th.json</li>
                  <li>comparison.html</li>
-                 <li>index.html</li>
                  <li>stylesheet.cs</li>
                  <li>education.csv</li>
                  <li>gpp.csv</li>
@@ -453,4 +452,5 @@ updateGraph();
            </div>
    </center>
 </div>
+</body>
 </html>

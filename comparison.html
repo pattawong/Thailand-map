@@ -2,7 +2,7 @@
     <head>
        
         <meta charset="utf-8">
-        <title>Overview of Thailand </title> 
+        <title>Well-Being in Thailand</title> 
         <link rel="stylesheet" type="text/css" href="stylesheet.css">  
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
@@ -10,16 +10,28 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v4.min.js">
         </script>
-           <h1 style="background-color:white;" align="center" id="title">Comparision between province X and Y</h1>
+           <h1 style="background-color:white; margin: 25px 100px 10px 100px;" align="center" id="title">Comparision between province X and Y</h1>
        
     </head>
     <body>
     <center><svg width="1000" height="650"></svg>
     <br>
-    <button class="btn btn-teal btn-lg" onclick="goBack()">Go Back</button>
+
+          <button type="button" class="btn btn-danger" onclick="this.blur();goto('inequality');" >Inequality</button>
+          <button type="button" class="btn btn-warning" onclick="this.blur();goto('monk');" >Monks</button>
+          <button type="button" class="btn btn-success" onclick="this.blur();goto('gpp');">GPP</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();goto('household income');">Income</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();goto('poverty');" >Poverty</button> 
+          <button type="button" class="btn btn-success" onclick="this.blur();goto('household debt');" >Debt</button>
+          <button type="button" class="btn btn-info" onclick="this.blur();goto('life');">Life Expectancy</button>
+          <button type="button" class="btn btn-purple" onclick="this.blur();goto('education');" >Years of Schooling</button>
+          <button type="button" class="btn btn-pink" onclick="this.blur();goto('density');">Population Density</button> 
+        <br><br>
+            <button class="btn btn-teal btn-lg" onclick="goBack()">Go Back</button>
+        
     </center>
     
-    </body>
+
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -29,7 +41,8 @@
     
 //Back button
 function goBack() {
-    window.history.back();
+    url = "index.html?cat=" + getUrlParameter("cat");
+    window.location = url;
 }
 //Extract Url parameter
 function getUrlParameter(name) {
@@ -38,7 +51,11 @@ function getUrlParameter(name) {
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' ')).split('_').join(' ');
 };
-    
+function goto(cat)
+    {
+        var url = location.search.split("cat")[0] + "cat="+cat;
+        window.location = url;
+    }
 //Time parser
 var parseTime = d3.timeParse("%Y");
 //Data collection
@@ -196,7 +213,7 @@ function read_data(cat)
        province.append("text")
       .datum(function(d) { return {id: d.id, value: d.value[d.value.length - 1]}; })
       //.attr("transform", function(d,i) { console.log(i); return "translate(" + x(d.value.year) + "," + y(d.value.value) + ")"; })
-      .attr("transform", function(d,i) { console.log(i); return "translate(80,"+(10+20*i)+")"; })
+      .attr("transform", function(d,i) { return "translate(80,"+(10+20*i)+")"; })
       .attr("x", 0)
       .attr("dy", "1em")
       .attr("id", function(d) { return d.id +"_label"; })
@@ -213,20 +230,21 @@ function read_data(cat)
 
 }
     </script>
+
 <br><br><br>
-<div style="margin: 25px 100px 10px 100px;>
+<div style="margin: 25px 100px 10px 100px;">
             <p> <b>Created by:</b> Pattawong Pansodtee and Victoria Ly in collaboration with Professor Lodha </p>
             <p> <b>Designed for:</b> CMPS 263 Data Visualization Winter 2018 </p>
 
 <center>      
        <div class="row">
-             <div class="column" style="text-align:left ">
+             <div class="column" style="text-align:left;">
+                                                       
                <h3>Files Submitted</h3>
                <ul>
                  <li>index.html</li>
                  <li>th.json</li>
                  <li>comparison.html</li>
-                 <li>index.html</li>
                  <li>stylesheet.cs</li>
                  <li>education.csv</li>
                  <li>gpp.csv</li>
@@ -276,4 +294,5 @@ function read_data(cat)
            </div>
    </center>
 </div>
+</body>
 </html>
